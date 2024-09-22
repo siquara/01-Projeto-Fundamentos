@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: "black",
+    backgroundColor: "#131016",
     flex: 1,
     padding: 24,
   },
@@ -37,4 +37,9 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     flex: 1,
   },
+  listEmptyText:{
+    color: "white",
+    fontSize: 14,
+    textAlign: "center",
+  }
 });

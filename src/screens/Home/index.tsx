@@ -1,4 +1,6 @@
 import {
+  Alert,
+  FlatList,
   ScrollView,
   Text,
   TextInput,
@@ -11,7 +13,7 @@ import { Button } from "../../components/Button";
 
 export function Home() {
   const participants = [
-    "Rodrio",
+    "Rodrigo",
     "Beatriz",
     "Gabriel",
     "Lucas",
@@ -25,10 +27,24 @@ export function Home() {
   ];
 
   function handleParticipantAdd() {
-    console.log("Você clicou no botão de Adicionar");
+    if (participants.includes("Rodrigo")) {
+      return Alert.alert(
+        "Partcipante já cadastrado!",
+        "Já existe um participante cadastrado lista"
+      );
+    }
   }
   function handleParticipantRemove(name: string) {
-    console.log(`Você clicou no botão de Remover ${name}`);
+    Alert.alert("Remover participante", `Deseja remover ${name}?`, [
+      {
+        text: "Sim",
+        onPress: () => Alert.alert(`${name} foi deletado da lista!`),
+      },
+      {
+        text: "Não",
+        style: "cancel",
+      },
+    ]);
   }
   return (
     <View style={styles.container}>
@@ -43,15 +59,25 @@ export function Home() {
         />
         <Button variant="add" onPress={handleParticipantAdd} />
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {participants.map((participants) => (
+
+      <FlatList
+        data={participants}
+        keyExtractor={(item) => item}
+        renderItem={({ item }) => (
           <Participant
-            key={participants}
-            name={participants}
-            onRemove={() => handleParticipantRemove(participants)}
+            name={item}
+            onRemove={() => handleParticipantRemove(item)}
           />
-        ))}
-      </ScrollView>
+        )}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => {
+          return (
+            <Text style={styles.listEmptyText}>
+              Não há participantes cadastrados
+            </Text>
+          );
+        }}
+      />
     </View>
   );
 }

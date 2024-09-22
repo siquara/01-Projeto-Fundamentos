@@ -7,7 +7,6 @@ interface ParticipantProps {
   onRemove?: () => void;
 }
 
-
 export function Participant({ name, onRemove }: ParticipantProps) {
   return (
     <View style={styles.container}>
