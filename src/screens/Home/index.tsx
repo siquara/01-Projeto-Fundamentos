@@ -1,44 +1,31 @@
-import {
-  Alert,
-  FlatList,
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, FlatList, Text, TextInput, View } from "react-native";
 import { styles } from "./styles";
 import { Participant } from "../../components/Participant";
 import { Button } from "../../components/Button";
+import { useState } from "react";
 
 export function Home() {
-  const participants = [
-    "Rodrigo",
-    "Beatriz",
-    "Gabriel",
-    "Lucas",
-    "Ana",
-    "Maria",
-    "João",
-    "Pedro",
-    "Paulo",
-    "Júlia",
-    "Clarisse",
-  ];
+  const [participants, setParticipants] = useState<string[]>([]);
+  const [newParticipant, setNewParticipant] = useState("");
 
   function handleParticipantAdd() {
-    if (participants.includes("Rodrigo")) {
+    if (participants.includes(newParticipant)) {
       return Alert.alert(
         "Partcipante já cadastrado!",
         "Já existe um participante cadastrado lista"
       );
     }
+    setParticipants([...participants, newParticipant]);
+    setNewParticipant("");
   }
   function handleParticipantRemove(name: string) {
     Alert.alert("Remover participante", `Deseja remover ${name}?`, [
       {
         text: "Sim",
-        onPress: () => Alert.alert(`${name} foi deletado da lista!`),
+        onPress: () =>
+          setParticipants((prevState) =>
+            prevState.filter((participant) => participant !== name)
+          ),
       },
       {
         text: "Não",
@@ -48,14 +35,16 @@ export function Home() {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.eventName}>Nome do Evento</Text>
-      <Text style={styles.eventDate}>Sexta, 4 de Novembro de 2022</Text>
+      <Text style={styles.eventName}>Confirmados para Festa</Text>
+      <Text style={styles.eventDate}>Sexta, 4 de Novembro de 2024</Text>
 
       <View style={styles.form}>
         <TextInput
           style={styles.input}
           placeholder="Nome do participante"
           placeholderTextColor="#6B6B6B"
+          onChangeText={setNewParticipant}
+          value={newParticipant}
         />
         <Button variant="add" onPress={handleParticipantAdd} />
       </View>
