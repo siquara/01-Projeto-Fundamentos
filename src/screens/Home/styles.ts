@@ -37,18 +37,4 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     flex: 1,
   },
-
-  button: {
-    backgroundColor: "#31CF67",
-    borderRadius: 5,
-    height: 56,
-    width: 56,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  buttonText: {
-    color: "white",
-    fontSize: 24,
-  },
 });
