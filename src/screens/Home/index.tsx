@@ -9,13 +9,19 @@ export function Home() {
   const [newParticipant, setNewParticipant] = useState("");
 
   function handleParticipantAdd() {
-    if (participants.includes(newParticipant)) {
+    const trimmedParticipant = newParticipant.trim();
+    if (participants.includes(trimmedParticipant)) {
       return Alert.alert(
-        "Partcipante já cadastrado!",
-        "Já existe um participante cadastrado lista"
+        "Participante já cadastrado!",
+        "Já existe um participante cadastrado na lista"
       );
     }
-    setParticipants([...participants, newParticipant]);
+  
+    if (trimmedParticipant === "") {
+      return Alert.alert("Campo vazio!", "Preencha o campo de participante");
+    }
+  
+    setParticipants([...participants, trimmedParticipant]);
     setNewParticipant("");
   }
   function handleParticipantRemove(name: string) {
